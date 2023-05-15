@@ -1,6 +1,9 @@
 package org.matthewo
 
 import org.matthewo.framework.purepursuit.Pose
+import java.io.File
+import java.io.FileWriter
+import java.nio.file.Path
 import kotlin.math.ceil
 import kotlin.math.roundToInt
 
@@ -100,6 +103,14 @@ class TrajectoryTable(val start1: Double, val end1: Double, val resolution1: Dou
             for(j in  0 until size2) {
                 val v2 = j / step2 + start2
                 f(v1, v2, table[i][j])
+            }
+        }
+    }
+
+    fun write(path: String) {
+        FileWriter(path).use {
+            for (i in 0 until size1) {
+                it.appendLine(table[i].map { it.second }.joinToString(","))
             }
         }
     }

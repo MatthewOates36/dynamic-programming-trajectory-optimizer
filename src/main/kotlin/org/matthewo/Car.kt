@@ -20,21 +20,14 @@ fun Pose.update(steeringAngle: Double, velocity: Double, timestep: Double): Pose
 }
 
 fun main() {
-//    var pose = Pose(0.0, 0.0, 0.0)
-//    println(pose)
-//    for(i in 1..47) {
-//        pose = pose.update(0.0, 1.0, 0.01)
-//        println(pose)
-//    }
-
     val plotter = Plotter()
 
     val lookAheadPoses = mutableListOf<Pose>()
     val optimizerPoses = mutableListOf<Pose>()
     val optimizer = CarTrajectoryOptimizer()
     val table = optimizer.optimize()
+    table.write("table.csv")
     val lookAhead = CarLookAheadTrajectory()
-
 
     val initialPose = Pose(0.0, 0.8, 45.0)
     var lookAheadPose = initialPose
@@ -53,7 +46,6 @@ fun main() {
     }
 
     val data = mapOf<String, Any>(
-//        "Time" to (0 until STEPS).map { it * TIMESTEP },
         "Look Ahead X" to lookAheadPoses.map { it.x },
         "Look Ahead Y" to lookAheadPoses.map { it.y },
         "Optimized X" to optimizerPoses.map { it.x },
@@ -61,14 +53,6 @@ fun main() {
     )
 
     val plots = mapOf(
-//        "Action" to letsPlot(data) + geomLine(
-//            color = "red",
-//            alpha = .3,
-//            size = 2.0,
-//        ) {
-//            x = "Time"
-//            y = "Action"
-//        },
         "Poses" to letsPlot(data) + geomLine(
             color = "red",
             alpha = .6,
@@ -84,14 +68,6 @@ fun main() {
             x = "Optimized X"
             y = "Optimized Y"
         },
-//        "Velocity" to letsPlot(data) + geomLine(
-//            color = "blue",
-//            alpha = .3,
-//            size = 2.0,
-//        ) {
-//            x = "Time"
-//            y = "Velocity"
-//        },
     )
 
     plotter.plot(plots)

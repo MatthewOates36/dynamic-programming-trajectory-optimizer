@@ -1,7 +1,7 @@
 package org.matthewo
 
 import org.matthewo.framework.purepursuit.Pose
-import kotlin.math.abs
+import kotlin.math.hypot
 
 class CarTrajectoryOptimizer {
 
@@ -11,7 +11,7 @@ class CarTrajectoryOptimizer {
         table[0.0, 0.0] = Pair(0.0, 0.0)
 
         val actions = (-27..27).toList()
-        repeat(10) {
+        repeat(20) {
             table.updateAll { heading, distance, current ->
                 val (currentCost, _) = current
                 val state = Pose(0.0, distance, heading)
@@ -19,7 +19,8 @@ class CarTrajectoryOptimizer {
                     val action = it.toDouble()
                     val update = state.update(action, 1.0, 0.05)
                     val (cost, _) = table[update.heading, update.y]
-                    val updatedCost = cost + 1.0
+//                    val updatedCost = cost + 1.0 // time optimization
+                    val updatedCost = cost + hypot(update.y, update.heading / 45) // position optimization
                     if (updatedCost >= currentCost) {
                         current
                     } else {
