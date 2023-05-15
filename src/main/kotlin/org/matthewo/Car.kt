@@ -4,7 +4,6 @@ import org.jetbrains.letsPlot.geom.geomLine
 import org.jetbrains.letsPlot.letsPlot
 import org.matthewo.framework.purepursuit.Pose
 import org.matthewo.framework.purepursuit.Vector
-import org.matthewo.math.CarLookAheadTrajectory
 import kotlin.math.*
 
 const val WHEELBASE_LENGTH = 0.15

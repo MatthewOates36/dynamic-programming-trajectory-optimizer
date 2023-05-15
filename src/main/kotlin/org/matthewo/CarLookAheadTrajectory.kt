@@ -1,4 +1,4 @@
-package org.matthewo.math
+package org.matthewo
 
 import org.matthewo.framework.purepursuit.Pose
 import org.matthewo.framework.purepursuit.Vector
